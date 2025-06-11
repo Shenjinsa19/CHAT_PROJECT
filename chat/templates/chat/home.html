@@ -1,0 +1,30 @@
+{% extends "chat/base.html" %}
+
+{% block title %} My Chat App{% endblock %}
+
+{% block content %}
+<h2 class="welcome-heading" style="font-family: Arial, sans-serif; font-size: 1.8rem; color: #2c3e50; margin-bottom: 15px;">
+  Welcome, {{ user.username }}!
+</h2>
+
+<h3 class="available-users-heading" style="font-family: Arial, sans-serif; font-size: 1.4rem; color: #1d4ed8; margin-bottom: 10px;">
+  Available users
+</h3>
+
+<ul class="user-list" style="list-style: none; padding-left: 0; font-family: Arial, sans-serif;">
+  {% for u in users %}
+    {% if u != user %}
+      <li class="user-item" style="margin-bottom: 10px; font-size: 1rem; color: #333;">
+        {{ u.username }}
+        <a href="{% url 'chat_room' u.username %}" class="chat-link" style="text-decoration: none;">
+          <button class="chat-button" style="margin-left: 10px; padding: 6px 12px; background-color: #1d4ed8; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600;">
+            Chat
+          </button>
+        </a>
+      </li>
+    {% endif %}
+  {% empty %}
+    <li class="no-users" style="font-style: italic; color: #888;">No users available.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

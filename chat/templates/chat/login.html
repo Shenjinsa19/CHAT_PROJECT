@@ -1,0 +1,50 @@
+{% extends 'chat/base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 40vh; padding: 10px;">
+
+  <h2 class="login-heading" style="font-family: Arial, sans-serif; font-size: 1.8rem; color: #2c3e50; margin: 0 0 15px 0;">
+    Login
+  </h2>
+
+  <form method="POST" class="login-form" style="font-family: Arial, sans-serif; max-width: 400px; width: 100%; margin-bottom: 15px;">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="login-button" style="padding: 8px 16px; background-color: #1d4ed8; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; width: 100%;">
+          Login
+      </button>
+  </form>
+
+  <p class="register-link-text" style="font-family: Arial, sans-serif; font-size: 0.95rem; color: #333; margin: 0;">
+    Don't have an account? 
+    <a href="{% url 'register' %}" class="register-link" style="color: #1d4ed8; text-decoration: none; font-weight: 600; margin-left: 5px;">
+      Register here
+    </a>
+  </p>
+
+</div>
+
+<style>
+  /* Make all input fields in the form the same width */
+  form.login-form input[type="text"],
+  form.login-form input[type="password"],
+  form.login-form input[type="email"] {
+    width: 100%;
+    box-sizing: border-box;  /* Include padding and border in the width */
+    padding: 8px 10px;
+    font-size: 1rem;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* Optional: style labels uniformly */
+  form.login-form label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 4px;
+  }
+</style>
+{% endblock %}
