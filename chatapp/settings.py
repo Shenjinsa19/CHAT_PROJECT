@@ -27,11 +27,23 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 ASGI_APPLICATION = 'chatapp.asgi.application'
 
+import os
+
+REDIS_URL = os.environ.get("REDIS_URL", "redis://127.0.0.1:6379")
+
 CHANNEL_LAYERS = {
     "default": {
-        "BACKEND": "channels.layers.InMemoryChannelLayer",
-    }
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [{
+                "address": os.environ.get("REDIS_URL"),
+                "ssl": True,
+            }]
+        },
+    },
 }
+
+
 
 
 
