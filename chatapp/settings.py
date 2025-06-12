@@ -41,7 +41,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-i52gub9dtc8ikr%l=7=_gjd@6h80(&lc_w(f5j@3xu*f$a$^k@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG =True
+import os
+
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = ['chat-project-uvbf.onrender.com','127.0.0.1','localhost']
 
 
@@ -182,5 +184,6 @@ DATABASES = {
 
 
 if os.getenv('RENDER'):
+    
     DEBUG = False
 CSRF_TRUSTED_ORIGINS = ['https://chat-project-uvbf.onrender.com']

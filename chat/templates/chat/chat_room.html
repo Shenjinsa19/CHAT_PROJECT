@@ -24,9 +24,13 @@
 </div>
 
 <script>
+    // const chatSocket = new WebSocket(
+    //     'ws://' + window.location.host + '/ws/chat/{{ other_user.username }}/'
+    // );
     const chatSocket = new WebSocket(
-        'ws://' + window.location.host + '/ws/chat/{{ other_user.username }}/'
+     (window.location.protocol === 'https:' ? 'wss://' : 'ws://') + window.location.host + '/ws/chat/{{ other_user.username }}/'
     );
+
 
     chatSocket.onmessage = function(e) {
         const data = JSON.parse(e.data);
