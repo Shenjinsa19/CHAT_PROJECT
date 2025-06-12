@@ -21,20 +21,39 @@ class ChatConsumer(AsyncWebsocketConsumer):
             self.channel_name
         )
 
+    # async def receive(self, text_data):
+    #     data = json.loads(text_data)
+    #     message = data["message"]
+
+    #     await self.save_message(self.user.username, self.other_username, message)
+
+    #     await self.channel_layer.group_send(
+    #         self.room_group_name,
+    #         {
+    #             "type": "chat_message",
+    #             "message": message,
+    #             "sender": self.user.username
+    #         }
+    #     )
     async def receive(self, text_data):
         data = json.loads(text_data)
         message = data["message"]
 
-        await self.save_message(self.user.username, self.other_username, message)
+        try:
+            await self.save_message(self.user.username, self.other_username, message)
+        except Exception as e:
+            print(f"[ERROR] Failed to save message: {e}")
+            return
 
         await self.channel_layer.group_send(
-            self.room_group_name,
-            {
-                "type": "chat_message",
-                "message": message,
-                "sender": self.user.username
+           self.room_group_name,
+           {
+            "type": "chat_message",
+            "message": message,
+            "sender": self.user.username
             }
         )
+
 
     async def chat_message(self, event):
         await self.send(text_data=json.dumps({
@@ -50,6 +69,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
     def save_message(self, sender, receiver, message):
         from django.contrib.auth.models import User
         from .models import Message
+        print(f"[SAVE MESSAGE] From: {sender}, To: {receiver}, Message: {message}")
         from django.contrib.auth.models import User  # Import inside method to avoid app registry issues
         sender_user = User.objects.get(username=sender)
         receiver_user = User.objects.get(username=receiver)
