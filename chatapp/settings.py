@@ -41,13 +41,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-i52gub9dtc8ikr%l=7=_gjd@6h80(&lc_w(f5j@3xu*f$a$^k@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-<<<<<<< HEAD
+DEBUG =True
 ALLOWED_HOSTS = ['chat-project-uvbf.onrender.com','127.0.0.1','localhost']
-=======
-ALLOWED_HOSTS = ['chat-project-uvbf.onrender.com','127.0.0.1']
->>>>>>> 7c0717a725b7798530a6886a05c0ea0e4101e7f1
+
 
 
 # Application definition
