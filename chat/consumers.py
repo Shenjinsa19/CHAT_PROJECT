@@ -71,6 +71,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
         from .models import Message
         print(f"[SAVE MESSAGE] From: {sender}, To: {receiver}, Message: {message}")
         from django.contrib.auth.models import User  # Import inside method to avoid app registry issues
-        sender_user = User.objects.get(username=sender)
-        receiver_user = User.objects.get(username=receiver)
+        # sender_user = User.objects.get(username=sender)
+        # receiver_user = User.objects.get(username=receiver)
+        sender_user = User.objects.get(username__iexact=sender)
+        receiver_user = User.objects.get(username__iexact=receiver)
         return Message.objects.create(sender=sender_user, receiver=receiver_user, text=message)
